@@ -64,7 +64,7 @@ func (gen *Factory) FromString(input string) (u UId16, err error) {
 	v := []byte(input)
 	k := encodedSize - len(v)
 	if k < 0 {
-		err = errors.New("uid16r: invalid encoding")
+		err = errors.New("uid16: invalid encoding")
 		return
 	} else if k > 0 {
 		w := make([]byte, encodedSize)
@@ -81,7 +81,7 @@ func (gen *Factory) FromString(input string) (u UId16, err error) {
 func (gen *Factory) FromBytes(input []byte) (u UId16, err error) {
 	l := len(input)
 	if l != size {
-		err = fmt.Errorf("uid16r: must be %d bytes max long", size)
+		err = fmt.Errorf("uid16: must be %d bytes max long", size)
 
 	} else {
 		copy(u[:], input)
