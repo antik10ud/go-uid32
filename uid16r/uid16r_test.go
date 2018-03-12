@@ -1,4 +1,4 @@
-package uids
+package uid16r
 
 import (
 	"testing"
@@ -50,23 +50,15 @@ func TestShorten(t *testing.T) {
 }
 
 func TestMax(t *testing.T) {
-	g := NewUId16rGen()
 	v1 := maxId16r()
 	chkEqual(t, "~~~~~~~~~~~~~~~~~~~~~l", v1.String())
-	v2 := v1.Shorten()
-	chkEqual(t, "l", v2)
-	v3, err := g.FromString(v1.String())
-	chk(t, err)
-	chkEqual(t, v1.String(), v3.String())
+
 }
 
 func TestMin(t *testing.T) {
 	v1 := minId16r()
 	chkEqual(t, "0000000000000000000000", v1.String())
-	g := NewUId16rGen()
-	v2, err := g.FromString(v1.String())
-	chk(t, err)
-	chkEqual(t, v1.String(), v2.String())
+
 
 }
 

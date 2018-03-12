@@ -1,9 +1,8 @@
-package uids
+package uid16r
 
 import (
 	"encoding/binary"
 	"time"
-	"bytes"
 	"fmt"
 	"sync"
 	"errors"
@@ -45,10 +44,6 @@ var encoding = base64.NewEncoding(EncodeStd).WithPadding(base64.NoPadding)
 
 type UId16r [size]byte
 
-func Equal(u1 UId16r, u2 UId16r) bool {
-	return bytes.Equal(u1[:], u2[:])
-}
-
 func (u UId16r) Bytes() []byte {
 	return u[:]
 }
@@ -60,7 +55,7 @@ func (u UId16r) String() string {
 func (u *UId16r) Shorten() string {
 	input := u.String()
 	i := 0
-	for n := len(input) - 1; i < n && input[i] == '~'; i++ {
+	for n := len(input) - 1; i < n && input[i] == leftPad; i++ {
 
 	}
 	return string([]byte(input)[i:])
@@ -109,9 +104,9 @@ func (gen *UId16rGen) New() UId16r {
 	}
 	gen.lastTime = timeNow
 	seq := gen.lastSeq
+	timeNow = max - timeNow - gen.clockOffset
 	gen.clockMutex.Unlock()
 	u := UId16r{}
-	timeNow = max - timeNow - gen.clockOffset
 	binary.BigEndian.PutUint64(u[0:], timeNow)
 	u[8] = seq
 	gen.randFunc(u[9:])
