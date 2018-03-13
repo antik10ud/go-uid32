@@ -14,12 +14,12 @@ const (
 	epochOffset = uint64(1520845232285679425)
 	EncodeStd   = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz~"
 	max         = uint64(1<<64 - 1)
-	size        = 16
+	Size        = 16
 	leftPad     = '~'
 )
 
 var (
-	encodedSize = encoding.EncodedLen(size)
+	EncodedSize = encoding.EncodedLen(Size)
 )
 
 type UId16rGen struct {
@@ -42,7 +42,7 @@ func NewUId16rGen() *UId16rGen {
 
 var encoding = base64.NewEncoding(EncodeStd).WithPadding(base64.NoPadding)
 
-type UId16r [size]byte
+type UId16r [Size]byte
 
 func (u UId16r) Bytes() []byte {
 	return u[:]
@@ -63,12 +63,12 @@ func (u *UId16r) Shorten() string {
 
 func (gen *UId16rGen) FromString(input string) (u UId16r, err error) {
 	v := []byte(input)
-	k := encodedSize - len(v)
+	k := EncodedSize - len(v)
 	if k < 0 {
 		err = errors.New("uid16r: invalid encoding")
 		return
 	} else if k > 0 {
-		w := make([]byte, encodedSize)
+		w := make([]byte, EncodedSize)
 		for i := 0; i < k; i++ {
 			w[i] = leftPad
 		}
@@ -81,8 +81,8 @@ func (gen *UId16rGen) FromString(input string) (u UId16r, err error) {
 
 func (gen *UId16rGen) FromBytes(input []byte) (u UId16r, err error) {
 	l := len(input)
-	if l != size {
-		err = fmt.Errorf("uid16r: must be %d bytes max long", size)
+	if l != Size {
+		err = fmt.Errorf("uid16r: must be %d bytes max long", Size)
 
 	} else {
 		copy(u[:], input)

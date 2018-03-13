@@ -13,13 +13,12 @@ import (
 const (
 	epochOffset = uint64(1520845232285679425)
 	EncodeStd   = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz~"
-	max         = uint64(1<<64 - 1)
-	size        = 16
+	Size        = 16
 	leftPad     = '0'
 )
 
 var (
-	encodedSize = encoding.EncodedLen(size)
+	encodedSize = encoding.EncodedLen(Size)
 )
 
 var encoding = base64.NewEncoding(EncodeStd).WithPadding(base64.NoPadding)
@@ -41,7 +40,7 @@ func NewFactory() *Factory {
 	return &g
 }
 
-type UId16 [size]byte
+type UId16 [Size]byte
 
 func (u UId16) Bytes() []byte {
 	return u[:]
@@ -80,8 +79,8 @@ func (gen *Factory) FromString(input string) (u UId16, err error) {
 
 func (gen *Factory) FromBytes(input []byte) (u UId16, err error) {
 	l := len(input)
-	if l != size {
-		err = fmt.Errorf("uid16: must be %d bytes max long", size)
+	if l != Size {
+		err = fmt.Errorf("uid16: must be %d bytes max long", Size)
 
 	} else {
 		copy(u[:], input)
