@@ -16,9 +16,9 @@ func TestGenerate(t *testing.T) {
 
 func TestVariableEncoding(t *testing.T) {
 	g := NewFactory()
-	v1, err := g.FromString("000k~Hb3IAk2WZ1XkT3feG")
+	v1, err := g.FromString("0008hpxy8cgub03qjull4frtkf")
 	chk(t, err)
-	v2, err := g.FromString("k~Hb3IAk2WZ1XkT3feG")
+	v2, err := g.FromString("8hpxy8cgub03qjull4frtkf")
 	chk(t, err)
 	chkEqual(t, v1.String(), v2.String())
 }
@@ -43,20 +43,20 @@ func TestExampleGenerate(t *testing.T) {
 
 func TestShorten(t *testing.T) {
 	g := NewFactory()
-	v1, err := g.FromString("000RExDIM5d0Tc2WxLrncl")
+	v1, err := g.FromString("0008hpxy8cgub03qjull4frtkf")
 	chk(t, err)
 	v2 := v1.Shorten()
-	chkEqual(t, "RExDIM5d0Tc2WxLrncl", v2)
+	chkEqual(t, "8hpxy8cgub03qjull4frtkf", v2)
 }
 
 func TestMax(t *testing.T) {
 	v1 := maxId16()
-	chkEqual(t, "~~~~~~~~~~~~~~~~~~~~~l", v1.String())
+	chkEqual(t, "yyyyyyyyyyyyyyyyyyyyyyyyyv", v1.String())
 }
 
 func TestMin(t *testing.T) {
 	v1 := minId16()
-	chkEqual(t, "0000000000000000000000", v1.String())
+	chkEqual(t, "00000000000000000000000000", v1.String())
 
 
 }
@@ -66,7 +66,7 @@ func TestVoid(t *testing.T) {
 	v1, err := g.FromString("")
 	chk(t, err)
 	s1 := v1.String()
-	chkEqual(t, "0000000000000000000000", s1)
+	chkEqual(t, "00000000000000000000000000", s1)
 	v2 := v1.Shorten()
 	chkEqual(t, "0", v2)
 }
@@ -75,7 +75,7 @@ func TestVoid2(t *testing.T) {
 	v1, err := g.FromString("0")
 	chk(t, err)
 	s1 := v1.String()
-	chkEqual(t, "0000000000000000000000", s1)
+	chkEqual(t, "00000000000000000000000000", s1)
 	v2 := v1.Shorten()
 	chkEqual(t, "0", v2)
 }
@@ -96,9 +96,9 @@ func TestIncSeq(t *testing.T) {
 	}
 
 	v1 := g.New()
-	chkEqual(t, "0000000000400000000000", v1.String())
+	chkEqual(t, "00000000000040000000000000", v1.String())
 	v2 := g.New()
-	chkEqual(t, "0000000000410000000000", v2.String())
+	chkEqual(t, "00000000000040b00000000000", v2.String())
 
 }
 

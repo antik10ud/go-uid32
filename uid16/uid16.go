@@ -7,12 +7,12 @@ import (
 	"time"
 	"math/rand"
 	"encoding/binary"
-	"encoding/base64"
+	"encoding/base32"
 )
 
 const (
 	epochOffset = uint64(1520845232285679425)
-	EncodeStd   = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz~"
+	EncodeStd   = "0345678abcdefghijklmnopqrstuvwxy"
 	Size        = 16
 	leftPad     = '0'
 )
@@ -21,7 +21,7 @@ var (
 	encodedSize = encoding.EncodedLen(Size)
 )
 
-var encoding = base64.NewEncoding(EncodeStd).WithPadding(base64.NoPadding)
+var encoding = base32.NewEncoding(EncodeStd).WithPadding(base32.NoPadding)
 
 type Factory struct {
 	clockOffset uint64

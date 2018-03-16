@@ -6,16 +6,16 @@ import (
 	"fmt"
 	"sync"
 	"errors"
-	"encoding/base64"
 	"math/rand"
+	"encoding/base32"
 )
 
 const (
 	epochOffset = uint64(1520845232285679425)
-	EncodeStd   = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz~"
+	EncodeStd   = "0345678abcdefghijklmnopqrstuvwxy"
 	max         = uint64(1<<64 - 1)
 	Size        = 16
-	leftPad     = '~'
+	leftPad     = 'y'
 )
 
 var (
@@ -40,7 +40,7 @@ func NewUId16rGen() *UId16rGen {
 	return &g
 }
 
-var encoding = base64.NewEncoding(EncodeStd).WithPadding(base64.NoPadding)
+var encoding = base32.NewEncoding(EncodeStd).WithPadding(base32.NoPadding)
 
 type UId16r [Size]byte
 
